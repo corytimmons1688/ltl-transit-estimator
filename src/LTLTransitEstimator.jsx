@@ -1,5 +1,13 @@
 import { useState } from 'react';
-import zipData from './allZips.json';
+const [zipData, setZipData] = useState([]);
+
+useEffect(() => {
+  fetch('/allZips.json')
+    .then(res => res.json())
+    .then(data => setZipData(data))
+    .catch(err => console.error('Failed to load ZIP data:', err));
+}, []);
+
 
 function haversineDistance([lat1, lon1], [lat2, lon2]) {
   const R = 3958.8;
